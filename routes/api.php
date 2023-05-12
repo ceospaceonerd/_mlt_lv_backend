@@ -30,12 +30,12 @@ use Stancl\Tenancy\Features\UserImpersonation;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
 
-Route::get('/test-mail', [SettingsController::class, 'testMail'])->name('test.mail')->middleware(['auth','xss']);
+Route::get('/test-mail', [SettingsController::class, 'testMail'])->name('test.mail')->middleware(['auth:sanctum','xss']);
 
 Route::group(['middleware' => ['Setting', 'xss']], function () {
     Auth::routes();
@@ -57,7 +57,7 @@ Route::group(['middleware' => ['Setting', 'xss']], function () {
     Route::get('view-blog', [PostsController::class, 'all_post'])->name('view.post');
     Route::get('/register', [RegisterController::class, 'index'])->name('register');
 });
-Route::group(['middleware' => ['auth', 'Setting', 'xss', '2fa']], function () {
+Route::group(['middleware' => ['auth:sanctum', 'Setting', 'xss', '2fa']], function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::post('/chart', [HomeController::class, 'chart'])->name('get.chart.data');
     Route::resource('roles', RoleController::class);
@@ -128,7 +128,7 @@ Route::group(['middleware' => ['auth', 'Setting', 'xss', '2fa']], function () {
     Route::get('myplans', [PlanController::class, 'myPlan'])->name('plans.myplan');
     Route::get('sales', [HomeController::class, 'sales'])->name('sales.index');
 });
-Route::post('landing-page/store', [SettingsController::class, 'landingPagestore'])->name('landing.page.store')->middleware(['auth', 'Setting']);
+Route::post('landing-page/store', [SettingsController::class, 'landingPagestore'])->name('landing.page.store')->middleware(['auth:sanctum', 'Setting']);
 Route::post('/stripe-webhook', [PlanController::class, 'webhook'])->name('stripe.webhook');
 Route::get('/impersonate/{token}', function ($token) {
     return UserImpersonation::makeResponse($token);

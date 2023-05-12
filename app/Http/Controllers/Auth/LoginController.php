@@ -82,23 +82,23 @@ class LoginController extends Controller
                 if ($users->active_status == 1) {
                     if ($this->attemptLogin($request)) {
                         // return $this->sendLoginResponse($request);
-                        return response()->json(['Status'=>'Success','message'=>'LoginData','response'=>$this->sendLoginResponse($request)],200);
+                        return response()->json(['Status'=>'Success','message'=>'LoginData','response'=>$this->sendLoginResponse($request)], 200);
                     } else {
                         // return redirect()->back()->with('errors', __('Invalid username or password'));
-                        return response()->json(['Status'=>'Error','message'=>'Invalid username or password','redirect'=>'back()'],401);
+                        return response()->json(['Status'=>'Error','message'=>'Invalid username or password','redirect'=>'back()'], 401);
                     }
                 } else {
                     // return redirect()->back()->with('errors', __('Please Contact to administrator'));
-                    return response()->json(['Status'=>'Error','message'=>'Please Contact to administrator','redirect'=>'back()'],401);
+                    return response()->json(['Status'=>'Error','message'=>'Please Contact to administrator','redirect'=>'back()'], 401);
                 }
             } else {
 
                 // return redirect()->back()->with('errors', __('permission denied'));
-                return response()->json(['Status'=>'Error','message'=>'permission denied','redirect'=>'back()'],401);
+                return response()->json(['Status'=>'Error','message'=>'permission denied','redirect'=>'back()'], 401);
             }
         } else {
             // return redirect()->back()->with('errors', __('user not found'));
-            return response()->json(['Status'=>'Error','message'=>'user not found','redirect'=>'back()'],401);
+            return response()->json(['Status'=>'Error','message'=>'user not found','redirect'=>'back()'], 401);
         }
     }
 }

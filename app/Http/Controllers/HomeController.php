@@ -82,7 +82,7 @@ class HomeController extends Controller
             return $dataTable->render('sales.index');
         } else {
             // return redirect()->back()->with('failed', __('Permission Denied.'));
-            return response()->json($data,$data['code']);
+            return response()->json($data , $data['code']);
         }
     }
     public function chart(Request $request)
